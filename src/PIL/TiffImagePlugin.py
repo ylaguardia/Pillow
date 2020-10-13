@@ -599,7 +599,12 @@ class ImageFileDirectory_v2(MutableMapping):
                     f"Metadata Warning, tag {tag} had too many entries: "
                     f"{len(values)}, expected 1"
                 )
-                dest[tag] = values[0]
+                #! Ignore unknown tags                 
+                try:
+                    dest[tag] = values[0]
+                except IndexError:
+                    dest[tag] = 0
+                    
 
         else:
             # Spec'd length > 1 or undefined
